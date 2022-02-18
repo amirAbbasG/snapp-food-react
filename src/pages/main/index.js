@@ -2,13 +2,22 @@ import React from "react";
 import { Grid } from "@mui/material";
 import { useSelector } from "react-redux";
 import { getMeal } from "../../utils/mealCalculator";
-import { RestaurantCategoriesBox, ShopsShowCasesBox } from "../../components";
+import {
+  RestaurantCategoriesBox,
+  ShopsShowCasesBox,
+  MyHelmet,
+} from "../../components";
 import { calculateRate, getFoodWithDiscount } from "../../utils/rateCalculator";
 
 const Main = () => {
   const shops = useSelector((state) => state.shops);
   return (
     <Grid>
+      <MyHelmet
+        description="سفارش انواع غذا به سریع ترین زمان ارسال"
+        title="صفحه اصلی"
+        keywords="test"
+      />
       <RestaurantCategoriesBox />
       <ShopsShowCasesBox
         data={[...shops].filter((s) => s.shopType === "رستوران")}

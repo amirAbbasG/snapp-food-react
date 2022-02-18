@@ -14,7 +14,7 @@ import {
   LocalOfferOutlined,
   CheckCircle,
 } from "@mui/icons-material";
-import { Factor } from "../../components";
+import { Factor, MyHelmet } from "../../components";
 import useStyles from "./styles";
 import { shopsContext } from "../../Contexts";
 import { separatePrice } from "../../utils/priceSeparator";
@@ -55,6 +55,11 @@ const FinalizeOrder = () => {
 
   return (
     <Grid container spacing={2} p={7}>
+      <MyHelmet
+        description="پرداخت انلاین و پرداخت درب منزل برای سفارش غذا"
+        title="تایید سفارش"
+        keywords="test"
+      />
       {order && (
         <>
           <Grid item sm={12} md={8} p={4}>

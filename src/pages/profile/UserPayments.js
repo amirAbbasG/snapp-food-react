@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Stack, Typography } from "@mui/material";
 import { getPaymentsApi } from "../../api/orderApi";
-import { PaymentCard } from "../../components";
-import useStyles from "./styles";
+import { MyHelmet, PaymentCard } from "../../components";
 
 const UserPayments = () => {
-  const classes = useStyles();
   const [payments, setPayments] = useState([]);
   useEffect(() => {
     const setData = async () => {
@@ -18,6 +16,11 @@ const UserPayments = () => {
   }, []);
   return (
     <Stack>
+      <MyHelmet
+        description="لیست دریافت های خود را در حساب کاربری خود مشاهده کنید"
+        title="پرداخت های شما"
+        keywords="test"
+      />
       <Typography m={2} variant="h6">
         لیست تراکنش‌ها
       </Typography>

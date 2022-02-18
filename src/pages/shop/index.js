@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Grid } from "@mui/material";
 import { useParams, useLocation } from "react-router-dom";
 import {
@@ -7,8 +7,8 @@ import {
   CategoriesBox,
   PriceRangeButtonGroup,
   FilterShopBox,
+  MyHelmet,
 } from "../../components";
-import useStyles from "./styles";
 import { shopsContext } from "../../Contexts";
 import { useDispatch } from "react-redux";
 import {
@@ -17,8 +17,6 @@ import {
 } from "../../redux/action/shopsActions";
 
 const Shops = () => {
-  const classes = useStyles();
-  const [categoryTitle, setCategoryTitle] = useState("همه دسته ها");
   const { filterShops } = useContext(shopsContext);
   const dispatch = useDispatch();
   const location = useLocation();
@@ -31,10 +29,15 @@ const Shops = () => {
     } else {
       dispatch(filterShopByShopType(filter));
     }
-  }, [filter, data]);
+  }, [filter, data, dispatch]);
 
   return (
     <Grid container direction="column">
+      <MyHelmet
+        description="فیلتر فروشگاه براساس نظرهای شما"
+        title={filter || "فروشگاها"}
+        keywords="test"
+      />
       <Grid container item justifyContent="flex-end">
         <Grid item p={1}>
           <SortShopsSelect />

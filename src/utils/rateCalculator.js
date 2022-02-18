@@ -1,12 +1,12 @@
 export const calculateRate = (scoreList) => {
-  if (scoreList != null && scoreList.length > 0) {
+  if (scoreList !== null && scoreList.length > 0) {
     const totalScore = scoreList.reduce((acc, item) => {
       return acc + item.score;
     }, 0);
 
     return (
       Math.round(
-        (totalScore / [...scoreList].filter((s) => s.score != 0).length) * 10
+        (totalScore / [...scoreList].filter((s) => s.score !== 0).length) * 10
       ) / 10
     );
   } else {

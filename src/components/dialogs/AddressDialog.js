@@ -1,38 +1,104 @@
-import React from "react";
-import { makeStyles } from "@mui/styles";
+import React, { useState, memo, useContext } from "react";
 import Mapir from "mapir-react-component";
-import { Button, Grid, Typography } from "@mui/material";
-import { MyDialog, MyForm } from "../";
+import { makeStyles } from "@mui/styles";
+import { Button, Grid, TextField } from "@mui/material";
+import { MyDialog } from "../";
+import { Map } from "../../utils/map";
+import { getAddress } from "../../api/addressApi";
+import { accountContext } from "../../Contexts";
 
-const AddressDialog = ({ open, handleClose }) => {
-  const Map = Mapir.setToken({
-    transformRequest: (url) => {
-      return {
-        url: url,
-        headers: {
-          "x-api-key":
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImU3YjI1MjYyZWQ3NjkzOGIzMTBiMThhYTM4MjczZTMwMmM0MDNiMDQ1ZjljMWE3NTY5ZjhiNWZiODlhNGZkMmQ1OWZhNGI0NzRkZDhmNWNkIn0.eyJhdWQiOiIxNjkxMyIsImp0aSI6ImU3YjI1MjYyZWQ3NjkzOGIzMTBiMThhYTM4MjczZTMwMmM0MDNiMDQ1ZjljMWE3NTY5ZjhiNWZiODlhNGZkMmQ1OWZhNGI0NzRkZDhmNWNkIiwiaWF0IjoxNjQzODc3NTc1LCJuYmYiOjE2NDM4Nzc1NzUsImV4cCI6MTY0NjM4MzE3NSwic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.nqdlEGvvrtkZzK686ORubLATICjegEc8WQ9SaElgPiHXQci8nl_doeOFajUzgjSucblNT3TXwdn7FDt0dlIeaD5WVKxAKe0yVKsAbbucuiYTnFVARGc7osMT0zD2W2sd_9Q5OBEH3eIZ-eTlGGxqsDLurFp9dQY3tirSlww163Zw9hrPWgYNxp21A9nzjACIV1NJRflDWP1_3Bu8-tLEzIRtGXpJgPuOJoVsGWnSuTdYvSwQG-Z_014rhdp7s_cixBRS_BaHqXPuhTYtZU4lwrqI6br4R4EPrd8utK6r7N_mGfKkxZ2Yq873wSJ3b-FK9m-s8d7ELZgfoauE1lAAYg",
-          "Mapir-SDK": "reactjs",
-        },
-      };
-    },
-  });
+const AddressDialog = memo(({ open, handleClose }) => {
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
+  const [city, setCity] = useState("");
+  const [exactAddress, setExactAddress] = useState("");
+
+  const { addAddress } = useContext(accountContext);
+
+  const handleClickMarker = () => {
+    setCity("");
+    setExactAddress("");
+    setLatitude(0);
+    setLongitude(0);
+  };
+
+  const handleClickMap = async (Map, e) => {
+    const { data } = await getAddress(e.lngLat.lng, e.lngLat.lat);
+    setCity(data.city);
+    setExactAddress(data.address);
+    setLatitude(e.lngLat.lat);
+    setLongitude(e.lngLat.lng);
+  };
+
+  const hanldeSubmit = () => {
+    addAddress({
+      city,
+      exactAddress,
+      latitude,
+      longitude,
+      title: "آدرس من",
+    });
+    handleClose();
+    handleClickMarker();
+  };
+
+  const { mapBox } = useStyles();
+
   return (
     <MyDialog open={open} onClose={handleClose} title="آدرس جدید" width="80%">
-      <div>
-        <Mapir center={[51.42047, 35.729054]} Map={Map}>
-          <Mapir.Marker coordinates={[51.41, 35.72]} anchor="bottom" />
+      <Grid className={mapBox}>
+        <Mapir
+          userLocation
+          onClick={handleClickMap}
+          center={[51.42047, 35.729054]}
+          Map={Map}
+        >
+          <Mapir.Marker
+            onClick={handleClickMarker}
+            coordinates={[longitude, latitude]}
+            anchor="bottom"
+          />
         </Mapir>
-      </div>
+
+        <TextField
+          variant="outlined"
+          fullWidth
+          sx={{ background: "#fff", m: 1 }}
+          value={exactAddress}
+          placeholder="آدرس دقیق شما"
+          onChange={(e) => setExactAddress(e.target.value)}
+        />
+        <TextField
+          variant="outlined"
+          fullWidth
+          placeholder="شهر شما"
+          sx={{ background: "#fff", m: 1 }}
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+        />
+        <Button
+          sx={{ width: "100%" }}
+          variant="contained"
+          onClick={hanldeSubmit}
+        >
+          ثبت آدرس
+        </Button>
+      </Grid>
     </MyDialog>
   );
-};
+});
 
 export default AddressDialog;
 
 const useStyles = makeStyles({
-  priceItem: {
-    justifyContent: "space-between",
-    padding: "7px !important",
+  mapBox: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+    justifyContent: "center",
+    borderRadius: 14,
+    height: "500px",
+    maxWidth: "740px",
+    overflow: "hidden",
   },
 });

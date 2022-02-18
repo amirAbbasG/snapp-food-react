@@ -1,6 +1,7 @@
 import React, { lazy, Suspense, useEffect, useContext } from "react";
 import { LinearProgress } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
+
 import { DefaultLayout, ProfileLayout } from "../components";
 import { accountContext } from "../Contexts";
 

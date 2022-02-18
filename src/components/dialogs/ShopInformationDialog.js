@@ -10,14 +10,16 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { makeStyles, useTheme } from "@mui/styles";
-import { MyDialog, RateBox } from "../";
+import Mapir from "mapir-react-component";
 import { LocationOn, Star } from "@mui/icons-material";
+import { range } from "lodash";
+import { MyDialog, RateBox } from "../";
 import { calculateRate } from "../../utils/rateCalculator";
 import { CommentBox } from "../";
-import { range } from "lodash";
+import { Map } from "../../utils/map";
 
 const ShopInformationDialog = ({ open, handleClose }) => {
-  const { informationBox, shopLogo, scoreRow, starBox } = useStyles();
+  const { informationBox, shopLogo, scoreRow, starBox, mapBox } = useStyles();
 
   const shopDetails = useSelector((state) => state.shopDetails);
   const comments = shopDetails.comments;
@@ -46,7 +48,7 @@ const ShopInformationDialog = ({ open, handleClose }) => {
   return (
     <MyDialog width="100%" onClose={handleClose} open={open}>
       <Box className={informationBox}>
-        <Stack direction="row">
+        <Stack direction="row" justifyContent="space-between">
           <img
             alt="shop logo"
             className={shopLogo}
@@ -67,6 +69,14 @@ const ShopInformationDialog = ({ open, handleClose }) => {
                 {exactAddress && exactAddress.slice(0, 34)}....
               </Typography>
             </Container>
+          </Stack>
+          <Stack className={mapBox}>
+            <Mapir center={[51.42047, 35.729054]} Map={Map}>
+              <Mapir.Marker
+                coordinates={[longitude, latitude]}
+                anchor="bottom"
+              />
+            </Mapir>
           </Stack>
         </Stack>
       </Box>
@@ -138,5 +148,12 @@ const useStyles = makeStyles((theme) => ({
     direction: "ltr",
     display: "flex",
     flexDirection: "row",
+  },
+  mapBox: {
+    width: "200px",
+    height: "120px",
+    overflow: "hidden",
+    borderRadius: 10,
+    marginRight: "4rem",
   },
 }));

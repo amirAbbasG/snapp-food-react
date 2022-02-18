@@ -44,7 +44,7 @@ const AuthDialog = ({ open, handleClose }) => {
           <IconButton onClick={onClose}>
             <Close />
           </IconButton>
-          <img src="/images/logo-name.png" className={logo} />
+          <img src="/images/logo-name.png" alt="food logo" className={logo} />
         </Stack>
       </DialogTitle>
       <Typography mr={3} variant="h6">

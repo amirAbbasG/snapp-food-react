@@ -78,7 +78,9 @@ const Header = ({ showShopTypes }) => {
                     <Typography lineHeight={0.7}>آدرس انتخابی</Typography>
                     <Typography lineHeight={0.7} color="GrayText" fontSize={10}>
                       {!isEmpty(account.addresses)
-                        ? `${account.addresses[0].exactAddress.slice(0, 30)}...`
+                        ? `${[...account.addresses]
+                            .reverse()[0]
+                            .exactAddress.slice(0, 30)}...`
                         : "آدرسی ثبت نشده"}
                       {<ArrowDropDown color="primary" />}
                     </Typography>

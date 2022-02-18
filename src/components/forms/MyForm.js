@@ -17,7 +17,7 @@ const MyForm = ({
     return () => {
       setIsLoadingButton(false);
     };
-  }, []);
+  }, [setIsLoadingButton]);
 
   return (
     <Formik

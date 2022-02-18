@@ -8,13 +8,17 @@ import {
   Grid,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { filterShopByShopType } from "../../redux/action/shopsActions";
 
 const CategoriesBox = ({ shopType }) => {
   const shopTypes = useSelector((state) => state.shopTypes);
-  const categories = shopTypes.find((s) => s.type === shopType).categories;
+  let type = shopTypes.find((s) => s.type === shopType);
+  if (!type) {
+    type = shopTypes.find((s) => s.type === "رستوران");
+  }
+
+  const categories = type.categories;
   const dispatch = useDispatch();
 
   const handlePressCategory = (category) => {
@@ -39,6 +43,7 @@ const CategoriesBox = ({ shopType }) => {
             onClick={() => handlePressCategory(category)}
           >
             <Avatar
+              alt="food category"
               className={img}
               src={`http://192.168.43.209:4000/${category}.jpg`}
             />

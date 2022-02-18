@@ -24,6 +24,7 @@ import {
   FoodDetailsDialog,
   CouponBox,
   CartBox,
+  MyHelmet,
 } from "../../components";
 import { separatePrice } from "../../utils/priceSeparator";
 import { calculateRate } from "../../utils/rateCalculator";
@@ -57,8 +58,6 @@ const ShopDetails = () => {
     }
   };
 
-  const { foodItem, shopLogo, informationBtn, sideBox } = useStyles();
-
   const handleClickFood = (foodId) => {
     setfoodId(foodId);
     setOpenFoodDetails(true);
@@ -68,8 +67,15 @@ const ShopDetails = () => {
     dispatch(setShopDetails(shopId));
   }, [shopId, dispatch]);
 
+  const { foodItem, shopLogo, informationBtn, sideBox } = useStyles();
+
   return (
     <>
+      <MyHelmet
+        description="جزئیات و مننوی غذایی فروشگاه مورد نظر"
+        title="جزئیات فروشگاه"
+        keywords="test"
+      />
       {shopDetails.foods && (
         <Grid container>
           <Grid container item xs={12} md={4} lg={3} className={sideBox}>

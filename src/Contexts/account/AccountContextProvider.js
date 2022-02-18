@@ -241,18 +241,7 @@ const AccountContextProvider = ({ children }) => {
   //#endregion
 
   //#region add address by user
-  const addAddress = async (coordinates, title = "آدرس من") => {
-    const { data } = await getAddress(
-      coordinates.latitude,
-      coordinates.longitude
-    );
-    const address = {
-      city: data.city,
-      exactAddress: data.formatted_address,
-      title,
-      latitude: coordinates.latitude,
-      longitude: coordinates.longitude,
-    };
+  const addAddress = async (address) => {
     editProfile({ address });
     dispatch(setAccountInformation());
   };
