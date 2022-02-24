@@ -22,13 +22,7 @@ const ShopsShowCasesBox = ({ data, title }) => {
 
   return (
     <>
-      <Stack
-        direction="row"
-        justifyContent="space-between"
-        px={8}
-        py={2}
-        mt={4}
-      >
+      <Stack direction="row" justifyContent="space-between" py={2} mt={4}>
         <Typography variant="h6">{title}</Typography>
         <Link to="Shops" state={{ data }}>
           <Stack direction="row" alignItems="center">

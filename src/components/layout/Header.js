@@ -177,7 +177,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     top: 0,
     position: "sticky",
-    zIndex: 1,
+    zIndex: 999,
   },
   logo: {
     [theme.breakpoints.down("sm")]: {

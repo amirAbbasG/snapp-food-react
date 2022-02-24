@@ -65,3 +65,17 @@ a {
 .rec.rec-arrow {
   background-color: #ffffff;
 }
+
+.rec.rec-arrow.rec.rec-arrow-right {
+  position: absolute;
+  left: 0;
+}
+.rec.rec-arrow.rec.rec-arrow-left {
+  position: absolute;
+  right: 0;
+  z-index: 1;
+}
+
+.rec.rec-carousel {
+  position: relative;
+}

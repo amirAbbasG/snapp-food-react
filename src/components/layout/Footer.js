@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    width: "100%",
   },
   img: {
     width: "6rem",

@@ -12,8 +12,22 @@ const DefaultLayout = ({
   return (
     <>
       <Header showShopTypes={showShopTypes} />
-      <Grid style={{ overflowX: "hidden", overflowY: "scroll" }}>
-        <Grid px="4%" py="3rem">
+      <Grid
+        style={{
+          overflowX: "hidden",
+          overflowY: "scroll",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Grid
+          sx={{
+            maxWidth: "85.4rem",
+            padding: "2.5rem",
+            width: "100%",
+          }}
+        >
           {useDefaultOutlet ? <Outlet /> : children}
         </Grid>
         <Footer />

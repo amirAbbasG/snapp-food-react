@@ -154,6 +154,7 @@ const useStyles = makeStyles((theme) => ({
     height: "120px",
     overflow: "hidden",
     borderRadius: 10,
-    marginRight: "4rem",
+    position: "absolute",
+    left: "2.4rem",
   },
 }));

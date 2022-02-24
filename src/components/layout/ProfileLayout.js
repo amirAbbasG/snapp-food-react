@@ -30,7 +30,7 @@ const ProfileLayout = () => {
       {isEmpty(account) ? (
         <ShouldLoginPage />
       ) : (
-        <Grid container spacing={6} columns={13} px={"10%"} className={root}>
+        <Grid container spacing={6} columns={13} className={root}>
           <Grid item xs={12} md={4} className={paperBox}>
             <Paper elevation={2} className={paper}>
               <Stack>
@@ -73,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "flex-start",
     flexDirection: "row",
+    justifyContent: "space-between",
     [theme.breakpoints.down("md")]: {
       flexDirection: "column",
       alignItems: "center",
