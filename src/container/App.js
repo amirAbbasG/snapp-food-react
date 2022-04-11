@@ -6,17 +6,20 @@ import {
   ShopsContextProvider,
   AccountContextProvider,
 } from "../Contexts";
+import { combineProviders } from "../utils/combineProviders";
 
 const App = () => {
+  const Providers = combineProviders([
+    GlobalContextProvider,
+    AccountContextProvider,
+    ShopsContextProvider,
+  ]);
+
   return (
     <>
-      <GlobalContextProvider>
-        <AccountContextProvider>
-          <ShopsContextProvider>
-            <MyRoutes />
-          </ShopsContextProvider>
-        </AccountContextProvider>
-      </GlobalContextProvider>
+      <Providers>
+        <MyRoutes />
+      </Providers>
       <ToastContainer />
     </>
   );

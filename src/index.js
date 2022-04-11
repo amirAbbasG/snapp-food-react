@@ -10,6 +10,8 @@ import { store } from "./redux/store";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
+import { ErrorBoundary } from "./components";
+
 export const muiCache = createCache({
   key: "mui",
   prepend: true,
@@ -20,9 +22,11 @@ render(
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
-        <Provider store={store}>
-          <App />
-        </Provider>
+        <ErrorBoundary>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </ErrorBoundary>
       </BrowserRouter>
     </ThemeProvider>
   </CacheProvider>,
