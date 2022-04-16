@@ -5,15 +5,16 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const ShopTypesBox = () => {
-  const { root, icon, itemBox } = useStyles();
+  const { root, icon, itemBox, iconButton } = useStyles();
   const shopTypes = useSelector((state) => state.shopTypes);
+
   return (
     <Grid wrap="nowrap" container columns={10} className={root}>
       {shopTypes &&
         shopTypes.map((item) => (
           <Grid xs={2} lg={1} md={1} key={item._id} item className={itemBox}>
             <Link to={`/shops/${item.type}`} state={{ data: false }}>
-              <IconButton>
+              <IconButton className={iconButton}>
                 <img
                   className={icon}
                   alt={item.type}
@@ -48,5 +49,11 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     width: "3rem",
     height: "3rem",
+  },
+  iconButton: {
+    transition: "transform 0.24s ease-in-out",
+    "&:hover": {
+      transform: "scale(1.2)",
+    },
   },
 }));
