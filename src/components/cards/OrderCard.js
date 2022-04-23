@@ -10,7 +10,7 @@ import { FactorDialog } from "../";
 import { reOrder } from "../../redux/action/orderActions";
 
 const OrderCard = ({ order }) => {
-  const { root, shopImage, foodBox } = useStyles();
+  const { root, shopImage, foodBox, badge, exactAddress } = useStyles();
   const dispatch = useDispatch();
   const [openFactor, setOpenFactor] = useState(false);
 
@@ -23,7 +23,7 @@ const OrderCard = ({ order }) => {
               <img
                 className={shopImage}
                 alt="shop-logo"
-                src={`http://192.168.43.209:4000/${order.shopId.shopLogo}`}
+                src={`http://localhost:4000/${order.shopId.shopLogo}`}
               />
             </Link>
             <Stack spacing={1}>
@@ -33,16 +33,16 @@ const OrderCard = ({ order }) => {
               <DateTimeBox dateTime={order.createDate} />
               <Container>
                 <LocationOn style={{ color: "gray" }} />
-                <Typography mr={0.3}>
-                  {order.address.exactAddress.slice(0, 28)}....
+                <Typography mr={0.3} className={exactAddress}>
+                  {order.address.exactAddress}
                 </Typography>
               </Container>
             </Stack>
           </Container>
-          <Stack pr={2} direction="row">
+          <Stack pr={2} direction={{ xs: "column", sm: "row" }}>
             {order.foods.map((food) => (
               <Badge
-                style={{ marginLeft: 12 }}
+                className={badge}
                 color="primary"
                 badgeContent={food.count}
                 key={food._id}
@@ -54,7 +54,7 @@ const OrderCard = ({ order }) => {
             ))}
           </Stack>
         </Stack>
-        <Stack spacing={3} alignItems={{ xs: "center", md: "flex-end" }}>
+        <Stack spacing={3} alignItems={{ xs: "center", lg: "flex-end" }}>
           <Typography>
             {separatePrice(order.amountByDiscount + order.shopId.deliveryCost)}{" "}
             تومان
@@ -98,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     borderBottom: "1px #e3e3e4 solid",
     padding: 14,
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.down("lg")]: {
       flexDirection: "column",
       alignItems: "center",
     },
@@ -115,5 +115,17 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.dark,
     borderRadius: 10,
     padding: 4,
+  },
+  badge: {
+    marginLeft: "12px",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "1rem",
+    },
+  },
+  exactAddress: {
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    width: "20ch",
+    whiteSpace: "noWrap",
   },
 }));

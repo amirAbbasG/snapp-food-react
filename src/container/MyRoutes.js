@@ -1,9 +1,8 @@
-import React, { lazy, Suspense, useEffect, useContext } from "react";
+import React, { lazy, Suspense } from "react";
 import { LinearProgress } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
 
 import { DefaultLayout, ProfileLayout } from "../components";
-import { accountContext } from "../Contexts";
 
 const MyRoutes = () => {
   //#region page imports
@@ -16,11 +15,6 @@ const MyRoutes = () => {
   const FavoriteShops = lazy(() => import("../pages/shop/FavoriteShops"));
   const FinalizeOrder = lazy(() => import("../pages/order/FinalizeOrder"));
   //#endregion
-
-  const { checkToken } = useContext(accountContext);
-  useEffect(() => {
-    checkToken();
-  }, []);
 
   return (
     <Suspense fallback={<LinearProgress />}>

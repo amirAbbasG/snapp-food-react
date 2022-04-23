@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { Grid } from "@mui/material";
+import { useTheme } from "@mui/styles";
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -9,6 +10,7 @@ const DefaultLayout = ({
   children,
   useDefaultOutlet = true,
 }) => {
+  const { breakpoints } = useTheme();
   return (
     <>
       <Header showShopTypes={showShopTypes} />
@@ -26,6 +28,9 @@ const DefaultLayout = ({
             maxWidth: "85.4rem",
             padding: "2.5rem",
             width: "100%",
+            [breakpoints.down("sm")]: {
+              padding: "1rem",
+            },
           }}
         >
           {useDefaultOutlet ? <Outlet /> : children}

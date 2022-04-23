@@ -45,7 +45,7 @@ const CategoriesBox = ({ shopType }) => {
             <Avatar
               alt="food category"
               className={img}
-              src={`http://192.168.43.209:4000/${category}.jpg`}
+              src={`http://localhost:4000/${category}.jpg`}
             />
             <Typography color="GrayText">{category}</Typography>
           </ButtonBase>
@@ -60,6 +60,9 @@ export default memo(CategoriesBox);
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
   },
   img: {
     marginLeft: 14,

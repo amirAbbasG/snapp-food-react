@@ -25,7 +25,7 @@ const FoodCard = ({ food, onClick }) => {
             <CardMedia
               component="img"
               className={img}
-              image={`http://192.168.43.209:4000/${food.foodImage}`}
+              image={`http://localhost:4000/${food.foodImage}`}
               alt="food"
             />
           </Box>

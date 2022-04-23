@@ -1,4 +1,4 @@
-import React, { useState, memo, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { accountContext, globalContext } from "../";
 import { useDispatch, useSelector } from "react-redux";
 import Jwt from "jwt-decode";
@@ -17,7 +17,6 @@ import {
   changePasswordApi,
   changeAuthenticatedUserPasswordApi,
 } from "../../api/userApi";
-import { getAddress } from "../../api/addressApi";
 import http from "../../api/";
 import { successMessage, errorMessage } from "../../utils/toast";
 import { getUserOrders } from "../../redux/action/orderActions";
@@ -49,8 +48,6 @@ const AccountContextProvider = ({ children }) => {
 
   //#region send number to get code
   const checkNumber = async (number) => {
-    console.log("here");
-    console.log(number);
     try {
       setIsLoadingButton(true);
       const { status, data } = await checkNumberApi(number);
@@ -195,7 +192,7 @@ const AccountContextProvider = ({ children }) => {
     localStorage.setItem("token", data.token);
     localStorage.setItem("userId", data.userId);
     dispatch(setAccount());
-    http.defaults.headers.common["Authorization"] = data.token;
+    // http.defaults.headers.common["Authorization"] = data.token;
   };
   //#endregion
 
@@ -219,6 +216,11 @@ const AccountContextProvider = ({ children }) => {
       }
     }
   };
+
+  useEffect(() => {
+    checkToken();
+  }, [checkToken]);
+
   //#endregion
 
   //#region edite profile
@@ -286,4 +288,4 @@ const AccountContextProvider = ({ children }) => {
   );
 };
 
-export default memo(AccountContextProvider);
+export default AccountContextProvider;

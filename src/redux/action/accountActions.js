@@ -1,18 +1,18 @@
-import Jwt from 'jwt-decode';
-import {userInformationApi} from '../../api/userApi';
+import Jwt from "jwt-decode";
+import { userInformationApi } from "../../api/userApi";
 
 export const setAccount = () => {
-  return async dispatch => {
-    const token = localStorage.getItem('token');
+  return async (dispatch) => {
+    const token = localStorage.getItem("token");
     const user = Jwt(token);
-    await dispatch({type: 'Set_Account', payload: user});
+    await dispatch({ type: "Set_Account", payload: user });
   };
 };
 export const setAccountInformation = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
-      const {data} = await userInformationApi();
-      await dispatch({type: 'Set_Account', payload: data.user});
+      const { data } = await userInformationApi();
+      await dispatch({ type: "Set_Account", payload: data.user });
     } catch (error) {
       console.log(error.response.data.message);
     }
@@ -20,7 +20,7 @@ export const setAccountInformation = () => {
 };
 
 export const clearAccount = () => {
-  return async dispatch => {
-    await dispatch({type: 'Clear_Account'});
+  return async (dispatch) => {
+    await dispatch({ type: "Clear_Account" });
   };
 };

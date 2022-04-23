@@ -33,6 +33,7 @@ export const changeAuthenticatedUserPasswordApi = (data) => {
 };
 
 export const userInformationApi = () => {
+  // const token = localStorage.getItem("token");
   return http.get("user/userInformation");
 };
 export const getUserCommentsApi = () => {

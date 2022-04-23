@@ -37,7 +37,15 @@ const CommentBox = ({ comments, id }) => {
           justifyContent: "space-between",
         }}
       >
-        <Typography mb={2} variant="h6">
+        <Typography
+          sx={(theme) => ({
+            [theme.breakpoints.down("sm")]: {
+              fontSize: "13px",
+            },
+          })}
+          mb={2}
+          variant="h6"
+        >
           نظرات کاربران
         </Typography>
         {isUserBuyFromShop && (

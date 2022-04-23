@@ -24,6 +24,11 @@ const useStyles = makeStyles((theme) => ({
       marginRight: "0.5rem",
     },
   },
+  detailText: {
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "12px",
+    },
+  },
 }));
 
 export default useStyles;

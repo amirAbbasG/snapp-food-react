@@ -7,7 +7,6 @@ const SnappFoodLogo = ({ className }) => {
     <Link to="/">
       <Box
         sx={{
-          marginLeft: "1rem",
           transition: "transform 0.24s ease-in-out",
           "&:hover": {
             transform: "scale(1.14)",
@@ -16,8 +15,10 @@ const SnappFoodLogo = ({ className }) => {
       >
         <img
           style={{
-            width: "4.4rem",
-            height: "4.4rem",
+            minWidth: "40px",
+            minHeight: "40px",
+            width: "4.4vw",
+            height: "4.4vw",
           }}
           className={className}
           src="/images/logo-name.png"

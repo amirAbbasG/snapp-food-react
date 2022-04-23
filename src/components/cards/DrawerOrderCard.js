@@ -18,7 +18,7 @@ const DrawerOrderCard = ({ order }) => {
           <img
             className={shopImage}
             alt="shop-logo"
-            src={`http://192.168.43.209:4000/${order.shopId.shopLogo}`}
+            src={`http://localhost:4000/${order.shopId.shopLogo}`}
           />
         </Link>
         <Stack spacing={1}>
@@ -35,7 +35,16 @@ const DrawerOrderCard = ({ order }) => {
         variant="contained"
         startIcon={<Autorenew />}
       >
-        سفارش مجدد
+        <Typography
+          sx={(theme) => ({
+            [theme.breakpoints.down("sm")]: {
+              display: "none",
+            },
+            fontSize: "12px",
+          })}
+        >
+          سفارش مجدد
+        </Typography>
       </Button>
     </Stack>
   );
@@ -59,5 +68,12 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 7,
     marginLeft: 7,
     boxShadow: theme.shadows[1],
+  },
+  button: {
+    width: "50%",
+    [theme.breakpoints.down("sm")]: {
+      width: "auto",
+      px: "2px",
+    },
   },
 }));

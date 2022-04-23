@@ -19,11 +19,15 @@ const PriceRangeButtonGroup = () => {
         >
           {priceRanges.map((item, index) => (
             <Button
-              style={{
-                borderRadius: 10,
-                color: priceRange === item ? "#00B862" : "black",
-                backgroundColor: priceRange === item ? "white" : "#EBEDF0",
-              }}
+              sx={(theme) => ({
+                width: "auto",
+                borderRadius: 2,
+                color: activeRange === item ? "#00B862" : "black",
+                backgroundColor: activeRange === item ? "white" : "#EBEDF0",
+                [theme.breakpoints.down("sm")]: {
+                  fontSize: "9px",
+                },
+              })}
               onClick={() => {
                 setPriceRange(item);
                 console.log(item);
@@ -52,5 +56,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 10,
     marginTop: 17,
     backgroundColor: theme.palette.secondary.dark,
+    alignItems: "center",
+    justifyItems: "center",
   },
 }));

@@ -25,129 +25,61 @@ import { isEmpty } from "lodash";
 import { globalContext } from "../../Contexts";
 
 const Header = ({ showShopTypes }) => {
-  const {
-    root,
-    SearchBox,
-    addressBox,
-    addressButton,
-    buttonBox,
-    iconsBox,
-    logo,
-    orderBox,
-    searchText,
-  } = useStyles();
+  const account = useSelector((state) => state.account);
+  const isLogin = !isEmpty(account);
+
+  console.log({ account });
+
+  const styles = useStyles(isLogin)();
+
   const [openSearch, setOpenSearch] = useState(false);
   const [openAddress, setOpenAddress] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [profileAnchorEl, setprofileAnchorEl] = useState(null);
+  const [profileAnchorEl, setProfileAnchorEl] = useState(null);
   const { isSm, isXs, openAuth, setOpenAuth } = useContext(globalContext);
 
   const HeaderButton = styled(Button)((theme) => ({
     height: "3rem",
-    marginRight: "4px",
+    marginRight: "2px",
+    [theme.breakpoints.up("xl")]: {
+      fontSize: "14px",
+    },
   }));
 
-  const account = useSelector((state) => state.account);
+  //#region handlers
 
-  const handleOpenProfileMenu = (event) => {
-    setprofileAnchorEl(event.currentTarget);
+  const handleAuth = (event) => {
+    if (isLogin) {
+      setProfileAnchorEl(event.currentTarget);
+    } else {
+      setOpenAuth(true);
+    }
   };
 
-  return (
+  const handleCloseAddress = () => {
+    setOpenAddress(false);
+  };
+
+  const handleOpenAddress = () => {
+    setOpenAddress(true);
+  };
+
+  //#endregion
+
+  const SearchBox = () => (
+    <Grid
+      onClick={() => setOpenSearch(true)}
+      item
+      md={3}
+      className={styles.SearchBox}
+    >
+      <Search color="disabled" fontSize="medium" />
+      <Typography className={styles.searchText}>جستجو در اسنپ فود</Typography>
+    </Grid>
+  );
+
+  const Dialogs = () => (
     <>
-      <Paper className={root}>
-        <Grid container justifyContent="space-between" alignItems="center">
-          <Grid xs={6} md={4} item container>
-            <Grid item xs={3}>
-              <SnappFoodLogo className={logo} />
-            </Grid>
-
-            {isEmpty(account) ? (
-              <Link to="#" onClick={() => setOpenAddress(false)}>
-                <Grid pt={1} item className={addressButton}>
-                  <AddressButton />
-                </Grid>
-              </Link>
-            ) : (
-              <Grid item xs={12} sm={9} container className={addressBox}>
-                <Grid item ml={2}>
-                  <MyLocation style={{ color: "#808080" }} />
-                </Grid>
-                <Grid item>
-                  <Link to="#" onClick={() => setOpenAddress(true)}>
-                    <Typography lineHeight={0.7}>آدرس انتخابی</Typography>
-                    <Typography lineHeight={0.7} color="GrayText" fontSize={10}>
-                      {!isEmpty(account.addresses)
-                        ? `${[...account.addresses]
-                            .reverse()[0]
-                            .exactAddress.slice(0, 30)}...`
-                        : "آدرسی ثبت نشده"}
-                      {<ArrowDropDown color="primary" />}
-                    </Typography>
-                  </Link>
-                </Grid>
-              </Grid>
-            )}
-          </Grid>
-
-          <Grid
-            onClick={() => setOpenSearch(true)}
-            item
-            xs={3}
-            className={SearchBox}
-          >
-            <Search color="disabled" fontSize="medium" />
-            <Typography className={searchText}>جستجو در اسنپ فود</Typography>
-          </Grid>
-
-          {isEmpty(account) && (
-            <Grid item md={5} lg={4} className={buttonBox}>
-              <HeaderButton
-                variant="text"
-                style={{ color: "#000" }}
-                startIcon={<AddBusiness style={{ fontSize: 30 }} />}
-              >
-                ثبت نام فروشندگان
-              </HeaderButton>
-              <HeaderButton
-                onClick={() => setOpenAuth(true)}
-                variant="contained"
-              >
-                ورود یا عضویت
-              </HeaderButton>
-            </Grid>
-          )}
-          <Grid className={iconsBox} item xs={3}>
-            <IconButton
-              onClick={() => setOpenSearch(true)}
-              sx={{ marginLeft: "10px" }}
-            >
-              <Search color="disabled" sx={{ fontSize: 30 }} />
-            </IconButton>
-            {isEmpty(account) && (
-              <IconButton>
-                <PersonOutline sx={{ fontSize: 30 }} />
-              </IconButton>
-            )}
-          </Grid>
-          {!isEmpty(account) && (
-            <Grid className={orderBox} item xs={3}>
-              <IconButton onClick={handleOpenProfileMenu}>
-                <PersonOutline sx={{ fontSize: 30 }} />
-              </IconButton>
-              <HeaderButton
-                onClick={() => setOpenDrawer(true)}
-                variant="text"
-                style={{ color: "#000" }}
-                startIcon={<ListAlt style={{ fontSize: 30 }} />}
-              >
-                {!isSm && !isXs && "سفارش ها"}
-              </HeaderButton>
-            </Grid>
-          )}
-        </Grid>
-        {showShopTypes && <ShopTypesBox />}
-      </Paper>
       <SearchDialog
         open={openSearch}
         handleClose={() => setOpenSearch(false)}
@@ -163,70 +95,216 @@ const Header = ({ showShopTypes }) => {
       />
       <ProfileMenu
         anchorEl={profileAnchorEl}
-        onClose={() => setprofileAnchorEl(null)}
+        onClose={() => setProfileAnchorEl(null)}
       />
+    </>
+  );
+
+  const SearchAndAuthButtons = () => (
+    <Grid
+      className={styles.iconsBox}
+      item
+      xs={isLogin ? 6 : 5}
+      sm={5}
+      md={2}
+      lg={3}
+    >
+      <IconButton
+        onClick={() => setOpenSearch(true)}
+        className={styles.searchIcon}
+      >
+        <Search color="disabled" sx={{ fontSize: 30 }} />
+      </IconButton>
+
+      <IconButton onClick={handleAuth}>
+        <PersonOutline sx={{ fontSize: 30 }} />
+      </IconButton>
+    </Grid>
+  );
+
+  return (
+    <>
+      <Paper className={styles.root} component="header">
+        <Grid
+          container
+          justifyContent="space-between"
+          alignItems="center"
+          pt="0.7rem"
+        >
+          <Grid item sm={1}>
+            <SnappFoodLogo className={styles.logo} />
+          </Grid>
+
+          {isLogin ? (
+            <>
+              <Grid item xs={3} sm={4} container className={styles.addressBox}>
+                <Grid item ml={2}>
+                  <MyLocation sx={{ color: "#808080" }} />
+                </Grid>
+                <Grid item>
+                  <Link to="#" onClick={handleOpenAddress}>
+                    <Typography
+                      lineHeight={0.7}
+                      className={styles.addressTitle}
+                    >
+                      آدرس انتخابی
+                    </Typography>
+                    <Typography
+                      color="GrayText"
+                      fontSize={10}
+                      className={styles.exactAddress}
+                    >
+                      {!isEmpty(account.addresses)
+                        ? [...account.addresses].reverse()[0].exactAddress
+                        : "آدرسی ثبت نشده"}
+                      {<ArrowDropDown color="primary" />}
+                    </Typography>
+                  </Link>
+                </Grid>
+              </Grid>
+
+              <SearchBox />
+              <SearchAndAuthButtons />
+
+              <Grid
+                className={styles.orderBox}
+                item
+                xs={2}
+                sm={1}
+                md={1.3}
+                lg={1}
+              >
+                <HeaderButton
+                  onClick={() => setOpenDrawer(true)}
+                  variant="text"
+                  sx={{ color: "#000", px: 0, mr: "4px" }}
+                  startIcon={<ListAlt sx={{ fontSize: 30 }} />}
+                >
+                  {!isSm && !isXs && "سفارش ها"}
+                </HeaderButton>
+              </Grid>
+            </>
+          ) : (
+            <>
+              <Grid item xs={7} sm={4} className={styles.addressButton}>
+                <Link to="#" onClick={handleCloseAddress}>
+                  <AddressButton />
+                </Link>
+              </Grid>
+              <SearchBox />
+
+              <Grid item md={4} className={styles.buttonBox}>
+                <HeaderButton
+                  variant="text"
+                  sx={{ color: "#000" }}
+                  startIcon={<AddBusiness sx={{ fontSize: "30px" }} />}
+                >
+                  ثبت نام فروشندگان
+                </HeaderButton>
+                <HeaderButton
+                  onClick={() => setOpenAuth(true)}
+                  variant="contained"
+                >
+                  ورود یا عضویت
+                </HeaderButton>
+              </Grid>
+
+              <SearchAndAuthButtons />
+            </>
+          )}
+        </Grid>
+
+        {showShopTypes && <ShopTypesBox />}
+      </Paper>
+      <Dialogs />
     </>
   );
 };
 
 export default Header;
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: "0 1rem 1rem 1rem",
-    width: "100%",
-    top: 0,
-    position: "sticky",
-    zIndex: 999,
-  },
-  logo: {
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
+const useStyles = (isLogin) =>
+  makeStyles((theme) => ({
+    root: {
+      padding: "0 1rem 1rem 1rem",
+      width: "100%",
+      position: "sticky",
+      zIndex: 999,
+      top: "0px",
+      right: "0px",
+      left: "0px",
     },
-  },
-  SearchBox: {
-    backgroundColor: theme.palette.secondary.dark,
-    borderRadius: "8px",
-    alignItems: "center",
-    display: "flex",
-    width: "27%",
-    padding: "10px",
-    [theme.breakpoints.down("md")]: {
-      display: "none",
+    logo: {
+      [theme.breakpoints.down("sm")]: {
+        display: "none",
+      },
     },
-  },
-  searchText: {
-    display: "inline",
-    color: "#808080",
-    fontSize: 15,
-    marginRight: "8px",
-  },
-  buttonBox: {
-    display: "flex",
-    justifyContent: "flex-end",
-    [theme.breakpoints.down("md")]: {
-      display: "none",
+    SearchBox: {
+      backgroundColor: theme.palette.secondary.dark,
+      borderRadius: "8px",
+      alignItems: "center",
+      display: "flex",
+      width: "27%",
+      padding: "10px",
+      [theme.breakpoints.down("md")]: {
+        display: "none",
+      },
     },
-  },
-  addressBox: {
-    cursor: "pointer",
-    alignItems: "center",
-  },
-  iconsBox: {
-    display: "flex",
-    justifyContent: "flex-end",
-    alignItems: "center",
-    [theme.breakpoints.up("md")]: {
-      display: "none",
+    searchText: {
+      display: "inline",
+      color: "#808080",
+      fontSize: "15px",
+      marginRight: "8px",
+      [theme.breakpoints.down("lg")]: {
+        fontSize: "13px",
+      },
     },
-  },
-  orderBox: {
-    display: "flex",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  addressButton: {
-    display: "flex",
-    alignItems: "center",
-  },
-}));
+    buttonBox: {
+      display: "flex",
+      justifyContent: "flex-end",
+      [theme.breakpoints.down("md")]: {
+        display: "none",
+      },
+    },
+    addressBox: {
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-start",
+    },
+    iconsBox: {
+      display: "flex",
+      justifyContent: "flex-end",
+      alignItems: "center",
+      [theme.breakpoints.up("md")]: {
+        display: !isLogin && "none",
+      },
+    },
+    orderBox: {
+      display: "flex",
+      justifyContent: "flex-end",
+      alignItems: "center",
+    },
+    addressButton: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-start",
+    },
+    addressTitle: {
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "11px",
+      },
+    },
+    exactAddress: {
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap",
+      width: "20ch",
+    },
+    searchIcon: {
+      marginLeft: "4px",
+      [theme.breakpoints.up("md")]: {
+        display: "none",
+      },
+    },
+  }));

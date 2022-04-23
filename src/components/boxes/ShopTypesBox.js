@@ -12,7 +12,7 @@ const ShopTypesBox = () => {
     <Grid wrap="nowrap" container columns={10} className={root}>
       {shopTypes &&
         shopTypes.map((item) => (
-          <Grid xs={2} lg={1} md={1} key={item._id} item className={itemBox}>
+          <Grid xs={4} md={2} lg={1} key={item._id} item className={itemBox}>
             <Link to={`/shops/${item.type}`} state={{ data: false }}>
               <IconButton className={iconButton}>
                 <img
@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
+    minWidth: "60px",
   },
   icon: {
     width: "3rem",

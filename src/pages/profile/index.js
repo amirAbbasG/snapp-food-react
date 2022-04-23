@@ -7,15 +7,18 @@ import { EditProfileDialog, ChangePasswordDialog } from "../../components";
 import useStyles from "./styles";
 
 const Profile = () => {
-  const { profileRoot, profileAction, profileDetailBox } = useStyles();
+  const { profileRoot, profileAction, profileDetailBox, detailText } =
+    useStyles();
   const account = useSelector((state) => state.account);
   const [openEditProfile, setOpenEditProfile] = useState(false);
   const [openChangePassword, setOpenChangePassword] = useState(false);
 
   const DetailItem = ({ title, value }) => (
     <Stack spacing={2} alignItems="flex-start">
-      <Typography color="GrayText">{title}</Typography>
-      <Typography variant="subtitle2" fontWeight="bold">
+      <Typography className={detailText} color="GrayText">
+        {title}
+      </Typography>
+      <Typography className={detailText} variant="subtitle2" fontWeight="bold">
         {value}
       </Typography>
     </Stack>

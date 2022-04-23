@@ -19,7 +19,8 @@ import { CommentBox } from "../";
 import { Map } from "../../utils/map";
 
 const ShopInformationDialog = ({ open, handleClose }) => {
-  const { informationBox, shopLogo, scoreRow, starBox, mapBox } = useStyles();
+  const { informationBox, shopLogo, scoreRow, starBox, mapBox, rateBox } =
+    useStyles();
 
   const shopDetails = useSelector((state) => state.shopDetails);
   const comments = shopDetails.comments;
@@ -52,15 +53,15 @@ const ShopInformationDialog = ({ open, handleClose }) => {
           <img
             alt="shop logo"
             className={shopLogo}
-            src={`http://192.168.43.209:4000/${shopDetails.shopLogo}`}
+            src={`http://localhost:4000/${shopDetails.shopLogo}`}
           />
-          <Stack p={1}>
+          <Stack pr={1}>
             <Typography
-              fontSize={17}
+              fontSize={{ xs: 13, sm: 17 }}
               fontWeight="bold"
               mt={2}
             >{`${shopDetails.shopName} (${city})`}</Typography>
-            <Typography color="gray" mt={1}>
+            <Typography color="gray" fontSize={{ xs: 11, sm: 14 }} mt={1}>
               {shopDetails.shopType} ، {shopDetails.category}
             </Typography>
             <Container>
@@ -81,16 +82,17 @@ const ShopInformationDialog = ({ open, handleClose }) => {
         </Stack>
       </Box>
       <Box className={scoreRow} sx={{ marginTop: 5 }}>
-        <Stack>
+        <Stack className={rateBox}>
           <RateBox fontSize={14}>{calculateRate(comments)}</RateBox>
           <Typography
+            fontSize={{ xs: "11px", sm: "14px" }}
             mt={1}
           >{`از مجموع ${nonZeroScoreCommentsCount} امتیاز و ${commentsCount} نظر`}</Typography>
         </Stack>
-        <Stack sx={{ flex: 1 }}>
+        <Stack sx={{ flex: 1, width: "100%" }}>
           {scoreRanges.map(({ color, value }) => (
             <Grid container alignItems="center" spacing={1} key={value}>
-              <Grid item xs={3} className={starBox}>
+              <Grid item xs={6} sm={3} className={starBox}>
                 {range(0, value).map((val) => (
                   <Star
                     key={val}
@@ -98,7 +100,7 @@ const ShopInformationDialog = ({ open, handleClose }) => {
                   />
                 ))}
               </Grid>
-              <Grid item xs={9}>
+              <Grid item xs={6} sm={9}>
                 <LinearProgress
                   sx={{
                     height: "1.7px",
@@ -129,7 +131,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 10,
+    padding: "7px",
   },
   shopLogo: {
     width: "6rem",
@@ -143,6 +145,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     alignItems: "center",
     paddingLeft: 7,
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+    },
   },
   starBox: {
     direction: "ltr",
@@ -156,5 +161,18 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 10,
     position: "absolute",
     left: "2.4rem",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+  rateBox: {
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      width: "100%",
+      mb: "8px",
+    },
   },
 }));

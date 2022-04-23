@@ -115,10 +115,16 @@ const AuthDialog = ({ open, handleClose }) => {
 
 export default AuthDialog;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   dialog: {
     width: "33%",
     borderRadius: 14,
+    [theme.breakpoints.down("sm")]: {
+      width: "70%",
+    },
+    [theme.breakpoints.between("sm", "lg")]: {
+      width: "50%",
+    },
   },
   titleBox: {
     display: "flex",
@@ -130,4 +136,4 @@ const useStyles = makeStyles({
     width: 49,
     height: 49,
   },
-});
+}));

@@ -17,7 +17,9 @@ const AddressButton = () => {
       endIcon={<ArrowDropDown color="primary" />}
       startIcon={<MyLocation color="primary" />}
     >
-      <Typography color="#DC143C">انتخاب آدرس</Typography>
+      <Typography fontSize="0.8rem" color="#DC143C">
+        انتخاب آدرس
+      </Typography>
     </Button>
   );
 };

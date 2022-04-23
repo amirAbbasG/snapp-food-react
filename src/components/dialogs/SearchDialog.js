@@ -85,7 +85,7 @@ const SearchDialog = ({ open, handleClose }) => {
 
 export default memo(SearchDialog);
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   dialog: {
     position: "absolute",
     top: 0,
@@ -103,11 +103,17 @@ const useStyles = makeStyles({
     width: "27rem",
     color: "#000",
     fontWeight: "bold",
+    [theme.breakpoints.down("sm")]: {
+      width: "18rem",
+    },
   },
   shopsBox: {
     width: "27rem",
     backgroundColor: "#FFFFFF",
     borderRadius: 7,
     padding: 10,
+    [theme.breakpoints.down("sm")]: {
+      width: "18rem",
+    },
   },
-});
+}));

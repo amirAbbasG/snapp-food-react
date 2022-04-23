@@ -2,6 +2,15 @@ import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
 let theme = createTheme({
   direction: "rtl",
+  breakpoints: {
+    values: {
+      xs: 320,
+      sm: 480,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+    },
+  },
   palette: {
     primary: {
       main: "#F700A2",

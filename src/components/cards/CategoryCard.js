@@ -30,7 +30,7 @@ const CategoryCard = ({ category }) => {
 
 export default CategoryCard;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   titleGrid: {
     backgroundColor: "#FFFFFF",
     width: "auto",
@@ -48,6 +48,10 @@ const useStyles = makeStyles({
     alignItems: "flex-end",
     justifyContent: "flex-start",
     cursor: "pointer",
+    [theme.breakpoints.down("sm")]: {
+      width: "13rem",
+      height: "7rem",
+    },
   },
   title: {
     margin: "3px 8px 3px 0",
@@ -56,4 +60,4 @@ const useStyles = makeStyles({
       marginLeft: "10px",
     },
   },
-});
+}));

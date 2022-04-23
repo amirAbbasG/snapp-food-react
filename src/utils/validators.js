@@ -62,7 +62,7 @@ const changePasswordValidationSchema = Yup.object().shape({
     .min(4, "کلمه عبور نباید کمتر از 4 رقم باشد"),
   code: Yup.string()
     .required("کد الزامی میباشد")
-    .min(5, "شماره باید پنج رقم باشد"),
+    .min(5, "کد باید پنج رقم باشد"),
 });
 export const validateAction = (action) => {
   switch (action) {

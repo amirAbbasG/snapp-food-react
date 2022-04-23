@@ -78,12 +78,12 @@ const ShopDetails = () => {
       />
       {shopDetails.foods && (
         <Grid container>
-          <Grid container item xs={12} md={4} lg={3} className={sideBox}>
+          <Grid container item xs={12} md={4} xl={3} className={sideBox}>
             <Stack direction="row">
               <img
                 alt="shop logo"
                 className={shopLogo}
-                src={`http://192.168.43.209:4000/${shopDetails.shopLogo}`}
+                src={`http://localhost:4000/${shopDetails.shopLogo}`}
               />
               <Stack p={1}>
                 <Container>
@@ -114,7 +114,7 @@ const ShopDetails = () => {
               اطلاعات و نظرات
             </Button>
           </Grid>
-          <Grid container item xs={12} lg={6} md={8} mb={2}>
+          <Grid container item xs={12} xl={6} md={8} mb={2}>
             <Paper sx={{ borderRadius: 2, overflowY: "scroll", width: "100%" }}>
               <CouponBox coupons={shopDetails.coupons} shopId={shopId} />
               <Typography m={2} textAlign="center">
@@ -137,7 +137,7 @@ const ShopDetails = () => {
               </Grid>
             </Paper>
           </Grid>
-          <Grid className={sideBox} container item xs={12} md={12} lg={3}>
+          <Grid className={sideBox} container item xs={12} md={12} xl={3}>
             <Paper sx={{ padding: "10px 20px", borderRadius: 2 }}>
               <Container>
                 <DeliveryDiningTwoTone />

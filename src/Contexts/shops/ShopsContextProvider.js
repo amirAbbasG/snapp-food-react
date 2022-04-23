@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { shopsContext } from "../";
 import { getPriceAverage } from "../../utils/rateCalculator";
@@ -134,4 +134,4 @@ const ShopsContextProvider = ({ children }) => {
   );
 };
 
-export default memo(ShopsContextProvider);
+export default ShopsContextProvider;

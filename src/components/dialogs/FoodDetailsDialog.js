@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Grid, Typography, Container } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useSelector } from "react-redux";
@@ -10,27 +10,31 @@ import {
   FoodOrderButtons,
 } from "../";
 import { calculateRate } from "../../utils/rateCalculator";
+import { globalContext } from "../../Contexts";
 
 const FoodDetailsDialog = ({ foodId, open, handleClose }) => {
   const shopDetails = useSelector((state) => state.shopDetails);
   const food = shopDetails.foods.find((f) => f._id === foodId);
   const rate = calculateRate(food.comments);
+  const { isXs } = useContext(globalContext);
 
   const { img, detailBox } = useStyles();
 
   return (
-    <MyDialog width="70%" onClose={handleClose} open={open}>
+    <MyDialog width={isXs ? "90%" : "70%"} onClose={handleClose} open={open}>
       <Grid container p={1}>
-        <Grid item xs={5}>
+        <Grid item xs={12} lg={5}>
           <img
             alt="food"
             className={img}
-            src={`http://192.168.43.209:4000/${food.foodImage}`}
+            src={`http://localhost:4000/${food.foodImage}`}
           />
         </Grid>
-        <Grid item xs={7} className={detailBox}>
+        <Grid item xs={12} lg={7} className={detailBox}>
           <Container sx={{ width: "100%", justifyContent: "space-between" }}>
-            <Typography variant="h6">{food.name}</Typography>
+            <Typography variant="h6" fontSize={{ xs: "12px", sm: "17px" }}>
+              {food.name}
+            </Typography>
             <RateBox rate={rate === 0 ? "جدید" : rate} />
           </Container>
           <Typography my={3} color="GrayText">
@@ -62,6 +66,11 @@ const useStyles = makeStyles((theme) => ({
     height: "15rem",
     borderRadius: 10,
     boxShadow: theme.shadows[2],
+    margin: "auto",
+    [theme.breakpoints.down("sm")]: {
+      width: "10rem",
+      height: "10rem",
+    },
   },
   detailBox: {
     display: "flex",

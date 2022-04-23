@@ -7,7 +7,7 @@ const CommentCard = ({ comment }) => {
   const { root, detailBox, replayBox } = useStyles();
   return (
     <Grid container className={root} direction="column">
-      <Grid item container>
+      <Grid item container direction={{ xs: "column", sm: "row" }}>
         <Grid item xs={4} className={detailBox}>
           <Typography fontWeight="bold">{comment.sender}</Typography>
           <Grid py={2}>
@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
+    marginBottom: "7px",
   },
   replayBox: {
     border: "1px solid",
