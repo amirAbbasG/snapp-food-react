@@ -172,7 +172,7 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
       justifyContent: "space-between",
       width: "100%",
-      mb: "8px",
+      mb: "12px",
     },
   },
 }));

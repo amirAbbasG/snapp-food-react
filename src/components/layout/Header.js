@@ -28,8 +28,6 @@ const Header = ({ showShopTypes }) => {
   const account = useSelector((state) => state.account);
   const isLogin = !isEmpty(account);
 
-  console.log({ account });
-
   const styles = useStyles(isLogin)();
 
   const [openSearch, setOpenSearch] = useState(false);
@@ -38,7 +36,7 @@ const Header = ({ showShopTypes }) => {
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
   const { isSm, isXs, openAuth, setOpenAuth } = useContext(globalContext);
 
-  const HeaderButton = styled(Button)((theme) => ({
+  const HeaderButton = styled(Button)(({ theme }) => ({
     height: "3rem",
     marginRight: "2px",
     [theme.breakpoints.up("xl")]: {

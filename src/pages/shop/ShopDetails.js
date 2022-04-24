@@ -99,7 +99,8 @@ const ShopDetails = () => {
                   mt={2}
                 >{`${shopDetails.shopName} (${shopDetails.address.city})`}</Typography>
               </Stack>
-              <IconButton onClick={handlePressFavorite} sx={{ marginRight: 1 }}>
+              <Stack flex={1} />
+              <IconButton onClick={handlePressFavorite}>
                 <FavoriteBorderOutlined
                   color={isShopFavorite ? "primary" : "#80808"}
                 />
@@ -125,7 +126,6 @@ const ShopDetails = () => {
                   <Grid
                     key={f._id}
                     item
-                    sm={12}
                     xs={12}
                     md={6}
                     p={0.4}
@@ -138,7 +138,7 @@ const ShopDetails = () => {
             </Paper>
           </Grid>
           <Grid className={sideBox} container item xs={12} md={12} xl={3}>
-            <Paper sx={{ padding: "10px 20px", borderRadius: 2 }}>
+            <Paper sx={{ padding: "10px", borderRadius: 2 }}>
               <Container>
                 <DeliveryDiningTwoTone />
                 <Typography mr={2}>{`پیک فروشنده ${cost} تومان`}</Typography>

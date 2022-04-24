@@ -22,8 +22,8 @@ const PriceRangeButtonGroup = () => {
               sx={(theme) => ({
                 width: "auto",
                 borderRadius: 2,
-                color: activeRange === item ? "#00B862" : "black",
-                backgroundColor: activeRange === item ? "white" : "#EBEDF0",
+                color: priceRange === item ? "#00B862" : "black",
+                backgroundColor: priceRange === item ? "white" : "#EBEDF0",
                 [theme.breakpoints.down("sm")]: {
                   fontSize: "9px",
                 },

@@ -11,7 +11,10 @@ const useStyles = makeStyles((theme) => ({
     height: "5rem",
     borderRadius: 10,
     boxShadow: theme.shadows[3],
-    marginLeft: 10,
+    maxHeight: "70px",
+    maxWidth: "70px",
+    minWidth: "50px",
+    marginLeft: "10px",
   },
   informationBtn: {
     borderRadius: 20,
@@ -22,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   sideBox: {
     display: "flex",
     flexDirection: "column",
-    padding: "0 30px",
+    padding: "0 10px",
   },
 }));
 

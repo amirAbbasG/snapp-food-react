@@ -54,7 +54,7 @@ const FinalizeOrder = () => {
     useStyles();
 
   return (
-    <Grid container spacing={2} p={7}>
+    <Grid container spacing={2} p={{ xs: 0, sm: 2 }}>
       <MyHelmet
         description="پرداخت انلاین و پرداخت درب منزل برای سفارش غذا"
         title="تایید سفارش"
@@ -62,13 +62,17 @@ const FinalizeOrder = () => {
       />
       {order && (
         <>
-          <Grid item sm={12} md={8} p={4}>
+          <Grid item xs={12} lg={8} p={{ xs: 0, sm: 2 }}>
             <Paper sx={{ width: "100%" }}>
               <Grid className={rightBox}>
                 <Typography m={2}>آدرس</Typography>
                 <Grid className={roundedBox} mb={14}>
                   <LocationOn style={{ color: "gray" }} />
-                  <Typography mr={0.3} my={1}>
+                  <Typography
+                    mr={0.3}
+                    my={1}
+                    fontSize={{ xs: "11px", sm: "14px" }}
+                  >
                     {order.address.exactAddress}
                   </Typography>
                   <Grid flex={1} />
@@ -76,7 +80,9 @@ const FinalizeOrder = () => {
                 </Grid>
                 <Grid className={roundedBox}>
                   <LocalOfferOutlined />
-                  <Typography mr={2}>کد تخفیف دارید ؟</Typography>
+                  <Typography fontSize={{ xs: "11px", sm: "14px" }} mr={2}>
+                    کد تخفیف دارید ؟
+                  </Typography>
                   <InputBase
                     sx={{
                       ml: 4,
@@ -102,7 +108,7 @@ const FinalizeOrder = () => {
               </Grid>
             </Paper>
           </Grid>
-          <Grid item sm={12} md={4} p={4}>
+          <Grid item xs={12} lg={4} p={{ xs: 0, sm: 2 }}>
             <Paper
               sx={{ width: "100%", display: "flex", flexDirection: "column" }}
             >
