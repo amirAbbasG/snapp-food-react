@@ -31,6 +31,12 @@ const AuthDialog = ({ open, handleClose }) => {
     handleClose();
   };
 
+  const showFullName = action === "register";
+  const showPassword =
+    action === "register" || action === "login" || action === "changePassword";
+  const showVerifyCode = action === "sendCode" || action === "changePassword";
+  const showForgotPassword = action === "login";
+
   return (
     <Dialog
       open={open}
@@ -80,13 +86,11 @@ const AuthDialog = ({ open, handleClose }) => {
             changeNumber={setNumber}
           />
 
-          {action === "register" && (
+          {showFullName && (
             <AuthTextField title="نام نام خانوادگی" name="fullName" />
           )}
 
-          {(action === "register" ||
-            action === "login" ||
-            action === "changePassword") && (
+          {showPassword && (
             <AuthTextField
               type="password"
               title={
@@ -96,11 +100,9 @@ const AuthDialog = ({ open, handleClose }) => {
             />
           )}
 
-          {(action === "sendCode" || action === "changePassword") && (
-            <VerificationCodeInput />
-          )}
+          {showVerifyCode && <VerificationCodeInput />}
 
-          {action === "login" && (
+          {showForgotPassword && (
             <Link onClick={() => forgotPassword(number)} to="#">
               <Typography size="xs" color="textSecondary" mt={2}>
                 رمز عبور خود را فراموش کردید؟
